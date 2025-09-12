@@ -1,0 +1,237 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: Marketing Plan Generator
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.27@05601731f98dab54179c55aef957c5323b4bfd9a736338b277f678d853081cee
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1757674880615-source-1757674887387-target
+      source: '1757674880615'
+      sourceHandle: source
+      target: '1757674887387'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1757674887387-source-1757674983447-target
+      source: '1757674887387'
+      sourceHandle: source
+      target: '1757674983447'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1757674983447-source-1757675097164-target
+      source: '1757674983447'
+      sourceHandle: source
+      target: '1757675097164'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - label: Promotion
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: promotion
+      height: 89
+      id: '1757674880615'
+      position:
+        x: 30
+        y: 244.5
+      positionAbsolute:
+        x: 30
+        y: 244.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4.1-nano
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: c3eaed78-8c06-4fb9-8458-4572876b2a5f
+          role: system
+          text: 'Generate a tagline for this promotion {{#1757674880615.promotion#}}.
+
+            Only return the tagline'
+        selected: false
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1757674887387'
+      position:
+        x: 333
+        y: 244.5
+      positionAbsolute:
+        x: 333
+        y: 244.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4.1-nano
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: c5afa984-5a18-4f78-9283-4b7bfba70879
+          role: system
+          text: 'Generate a good marketing plan based on this promotion {{#1757674880615.promotion#}}and
+            tagline {{#1757674887387.text#}}
+
+            Only return the marketing plan'
+        selected: false
+        structured_output_enabled: true
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1757674983447'
+      position:
+        x: 636
+        y: 244.5
+      positionAbsolute:
+        x: 636
+        y: 244.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1757674880615'
+          - promotion
+          value_type: string
+          variable: Promotion
+        - value_selector:
+          - '1757674887387'
+          - text
+          value_type: string
+          variable: Tagline
+        - value_selector:
+          - '1757674983447'
+          - text
+          value_type: string
+          variable: Marketing_Plan
+        selected: false
+        title: End
+        type: end
+      height: 141
+      id: '1757675097164'
+      position:
+        x: 939
+        y: 244.5
+      positionAbsolute:
+        x: 939
+        y: 244.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    viewport:
+      x: 196.18356799736173
+      y: 127.02599024556724
+      zoom: 0.6142636157317205
