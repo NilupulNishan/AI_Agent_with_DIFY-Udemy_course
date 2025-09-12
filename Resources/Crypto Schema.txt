@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: CoinGecko Crypto Price API
+  description: Get the latest cryptocurrency price using the CoinGecko API.
+  version: 1.0.0
+
+servers:
+  - url: https://api.coingecko.com/api/v3
+
+paths:
+  /simple/price:
+    get:
+      summary: Get current price of a cryptocurrency
+      description: Returns the current price of one or more cryptocurrencies in specified fiat currencies.
+      parameters:
+        - in: query
+          name: ids
+          schema:
+            type: string
+            example: bitcoin
+          required: true
+          description: Comma-separated list of cryptocurrency IDs (e.g., bitcoin, ethereum).
+        - in: query
+          name: vs_currencies
+          schema:
+            type: string
+            example: usd
+          required: true
+          description: Comma-separated list of fiat currencies to compare against (e.g., usd, eur).
+      responses:
+        '200':
+          description: Successful response with current price
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: number
+              example:
+                bitcoin:
+                  usd: 7162.78
+        '400':
+          description: Invalid request parameters
+        '429':
+          description: Too many requests (rate-limited)
+        '500':
+          description: Internal server error
+
+components: {}
